@@ -32,6 +32,12 @@ Bind to another port than 30123
 $ ./pully.py --source="1.2.3.4" --port=1337 --exec-push="git pull"
 ```
 
+Run the commands in another working directory
+
+```bash
+$ ./pully.py --source="1.2.3.4" --cwd="/var/www/website" --exec-push="git pull"
+```
+
 ## Options
 
 ```
@@ -54,5 +60,7 @@ optional arguments:
                         
   --exec-tag EXEC_TAG   Command to execute when tags are pushed to the
                         repository (default: nothing)
-
+                        
+  --cwd CWD, -c CWD     Define the working directory the commands are executed
+                        in
 ```

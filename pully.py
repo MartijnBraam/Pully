@@ -32,12 +32,12 @@ class RequestHandler(BaseHTTPRequestHandler):
             if args.exec_push == "":
                 print("No command defined for push events (--exec-push)")
             else:
-                subprocess.call(args.exec_push, shell=True)
+                subprocess.call(args.exec_push, shell=True, cwd=args.cwd)
         elif gitlab_hook_type == "Tag Push Hook":
             if args.exec_tag == "":
                 print("No command defined for push events (--exec-tag)")
             else:
-                subprocess.call(args.exec_tag, shell=True)
+                subprocess.call(args.exec_tag, shell=True, cwd=args.cwd)
 
         message = 'ok'
         self.send_response(200)
@@ -54,6 +54,8 @@ if __name__ == '__main__':
                         default="")
     parser.add_argument("--exec-tag", help="Command to execute when tags are pushed to the repository", type=str,
                         default="")
+    parser.add_argument("--cwd", "-c", help="Define the working directory the commands are executed in", type=str,
+                        default=None)
     args = parser.parse_args()
 
     server = HTTPServer(('0.0.0.0', args.port), RequestHandler)
